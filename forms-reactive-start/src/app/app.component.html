@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div formGroupName="userData">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              class="form-control"
+              formControlName="username">
+              <span class="help=block"
+              *ngIf="!signupForm.get('userData.username').valid 
+              && signupForm.get('userData.username').touched">
+                Please enter valid username!!
+              </span>
+          </div>
+          <div class="form-group">
+            <label for="email">email</label>
+            <input
+              type="text"
+              id="email"
+              class="form-control"
+              formControlName="email"
+              >
+              <span class="help=block"
+              *ngIf="!signupForm.get('userData.email').valid 
+              && signupForm.get('userData.email').touched">
+                Please enter valid email!!
+              </span>
+          </div>
+        </div>
+       
+        <div class="radio" *ngFor="let gender of genders">
+          <label>
+            <input
+              type="radio"
+              formControlName="gender"
+              [value]="gender">{{ gender }}
+          </label>
+        </div>
+        <div formArrayName="hobbies">
+          <h4>Your Hobbies</h4>
+          <button class="btn btn-default" type="button" (click)="addHobby()">
+          Add Hobby
+          </button>
+          <div class="form-group"
+          *ngFor="let hobbyControl of getControls(); let i =index"
+          >
+            <input type="text" class="form-control" [formControlName]="i">
+          </div>
+        </div>
+        <span class="help=block"
+        *ngIf="!signupForm.valid 
+        && signupForm.touched">
+          Please enter valid gender!!
+        </span>
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
